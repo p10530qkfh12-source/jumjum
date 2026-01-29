@@ -9,13 +9,13 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "궁금하면 5백원 - 타로 운세",
-  description: "모던 K-전통 스타일의 무료 타로 운세 서비스",
-  keywords: ["타로", "운세", "점", "사주", "무료운세"],
-  authors: [{ name: "궁금하면 5백원" }],
+  title: "궁금하면 500원 기분좋으면 무료사주",
+  description: "신년운세, 전통사주, 토정비결, 지정일운세 - 모던 K-전통 스타일 사주 서비스",
+  keywords: ["사주", "운세", "신년운세", "토정비결", "전통사주", "무료운세"],
+  authors: [{ name: "궁금하면 500원" }],
   openGraph: {
-    title: "궁금하면 5백원 - 타로 운세",
-    description: "당신의 운명을 타로 카드로 확인하세요",
+    title: "궁금하면 500원 기분좋으면 무료사주",
+    description: "당신의 운명을 사주로 확인하세요",
     type: "website",
   },
 };

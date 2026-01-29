@@ -2,18 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Category, CategoryOption, UserProfile } from '@/types/tarot';
-import { categories } from '@/data/tarotCards';
+import { Category, CategoryOption } from '@/types/tarot';
+import { categories } from '@/data/fortuneData';
 
 interface CategorySelectorProps {
-  userProfile: UserProfile;
   onSelect: (category: Category) => void;
 }
 
-export default function CategorySelector({
-  userProfile,
-  onSelect,
-}: CategorySelectorProps) {
+export default function CategorySelector({ onSelect }: CategorySelectorProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -28,12 +24,14 @@ export default function CategorySelector({
         transition={{ delay: 0.2, duration: 0.5 }}
         className="text-center mb-12"
       >
-        <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          <span className="text-[#D4AF37]">{userProfile.birthYear}년생</span>{' '}
-          <span className="text-[#D4AF37]">{userProfile.zodiacAnimal}띠</span>님,
+        <h1 className="text-2xl md:text-3xl font-bold text-[#D4AF37] mb-2">
+          궁금하면 500원
         </h1>
-        <p className="text-xl md:text-2xl text-white/90">
-          지금 고민은 무엇인가요?
+        <p className="text-lg md:text-xl text-white/80 mb-6">
+          기분좋으면 무료사주
+        </p>
+        <p className="text-white/60 text-sm">
+          어떤 운세가 궁금하신가요?
         </p>
       </motion.div>
 
@@ -56,7 +54,7 @@ export default function CategorySelector({
         transition={{ delay: 0.8 }}
         className="mt-12 text-sm text-white/60 text-center"
       >
-        마음을 가라앉히고 카테고리를 선택해주세요
+        전통의 지혜로 당신의 운명을 살펴보세요
       </motion.p>
     </motion.div>
   );
@@ -77,7 +75,7 @@ function CategoryButton({ category, index, onClick }: CategoryButtonProps) {
       whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)' }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="relative overflow-hidden rounded-xl p-6
+      className="relative overflow-hidden rounded-xl p-5
                  bg-gradient-to-br from-[#252840] to-[#1A1C2C]
                  border-2 border-[#D4AF37]/50
                  hover:border-[#D4AF37]
@@ -98,8 +96,13 @@ function CategoryButton({ category, index, onClick }: CategoryButtonProps) {
       </motion.span>
 
       {/* 라벨 */}
-      <span className="relative z-10 text-white font-medium text-lg">
+      <span className="relative z-10 text-white font-medium text-lg block">
         {category.label}
+      </span>
+
+      {/* 설명 */}
+      <span className="relative z-10 text-white/50 text-xs mt-1 block">
+        {category.description}
       </span>
 
       {/* 하단 골드 라인 */}

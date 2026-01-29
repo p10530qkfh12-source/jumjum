@@ -2,46 +2,48 @@
 
 import { useState, useCallback } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Category, SelectedCard, UserProfile, AppStep } from '@/types/tarot';
+import { Category, UserProfile, AppStep, FortuneResult as FortuneResultType } from '@/types/tarot';
+import { generateFortune } from '@/data/fortuneData';
 import CategorySelector from '@/components/CategorySelector';
-import CardDeck from '@/components/CardDeck';
+import BirthInput from '@/components/BirthInput';
 import AdGate from '@/components/AdGate';
-import ResultDisplay from '@/components/ResultDisplay';
+import FortuneResult from '@/components/FortuneResult';
 
-// 샘플 사용자 프로필 (실제 앱에서는 사용자 입력 또는 저장된 데이터 사용)
-const defaultUserProfile: UserProfile = {
-  birthYear: 1983,
-  zodiacAnimal: '돼지',
-};
-
-export default function TarotPage() {
+export default function FortunePage() {
   const [step, setStep] = useState<AppStep>('category');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [selectedCards, setSelectedCards] = useState<SelectedCard[]>([]);
-  const [userProfile] = useState<UserProfile>(defaultUserProfile);
+  const [userProfile, setUserProfile] = useState<UserProfile>({});
+  const [fortuneResult, setFortuneResult] = useState<FortuneResultType | null>(null);
 
   // 카테고리 선택 핸들러
   const handleCategorySelect = useCallback((category: Category) => {
     setSelectedCategory(category);
-    setStep('selection');
+    setStep('input');
   }, []);
 
-  // 카드 선택 완료 핸들러
-  const handleSelectionComplete = useCallback((cards: SelectedCard[]) => {
-    setSelectedCards(cards);
+  // 정보 입력 완료 핸들러
+  const handleInputComplete = useCallback((profile: UserProfile) => {
+    setUserProfile(profile);
     setStep('adgate');
   }, []);
 
   // 광고 시청 완료 핸들러
   const handleAdComplete = useCallback(() => {
+    if (selectedCategory) {
+      const result = generateFortune(selectedCategory, {
+        birthDate: userProfile.birthDate,
+      });
+      setFortuneResult(result);
+    }
     setStep('result');
-  }, []);
+  }, [selectedCategory, userProfile]);
 
   // 리셋 핸들러
   const handleReset = useCallback(() => {
     setStep('category');
     setSelectedCategory(null);
-    setSelectedCards([]);
+    setUserProfile({});
+    setFortuneResult(null);
   }, []);
 
   return (
@@ -50,15 +52,15 @@ export default function TarotPage() {
         {step === 'category' && (
           <CategorySelector
             key="category"
-            userProfile={userProfile}
             onSelect={handleCategorySelect}
           />
         )}
 
-        {step === 'selection' && (
-          <CardDeck
-            key="selection"
-            onSelectionComplete={handleSelectionComplete}
+        {step === 'input' && selectedCategory && (
+          <BirthInput
+            key="input"
+            category={selectedCategory}
+            onSubmit={handleInputComplete}
           />
         )}
 
@@ -69,11 +71,10 @@ export default function TarotPage() {
           />
         )}
 
-        {step === 'result' && selectedCategory && (
-          <ResultDisplay
+        {step === 'result' && fortuneResult && (
+          <FortuneResult
             key="result"
-            selectedCards={selectedCards}
-            category={selectedCategory}
+            result={fortuneResult}
             onReset={handleReset}
           />
         )}

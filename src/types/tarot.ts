@@ -1,36 +1,37 @@
 export interface UserProfile {
-  birthYear: number;
-  zodiacAnimal: string;  // 띠
+  name?: string;
+  birthDate?: string;  // YYYY-MM-DD
+  birthTime?: string;  // HH:mm
+  gender?: 'male' | 'female';
 }
 
-export interface TarotCard {
-  id: number;
-  name: string;
-  nameKo: string;
-  image: string;
-  interpretation: {
-    love: string;
-    career: string;
-    money: string;
-    general: string;
-  };
-  keywords: string[];
-}
-
-export type Category = 'love' | 'career' | 'money' | 'general';
+export type Category = 'newyear' | 'saju' | 'tojeong' | 'daily';
 
 export interface CategoryOption {
   id: Category;
   label: string;
+  description: string;
   icon: string;
 }
 
-export type ReadingPosition = 'past' | 'present' | 'future';
-
-export interface SelectedCard {
-  card: TarotCard;
-  position: ReadingPosition;
-  isRevealed: boolean;
+export interface FortuneResult {
+  category: Category;
+  title: string;
+  summary: string;
+  sections: FortuneSection[];
+  luckyItems: LuckyItem;
 }
 
-export type AppStep = 'category' | 'selection' | 'adgate' | 'result';
+export interface FortuneSection {
+  title: string;
+  content: string;
+  rating?: number;  // 1-5 별점
+}
+
+export interface LuckyItem {
+  color: string;
+  number: number;
+  direction: string;
+}
+
+export type AppStep = 'category' | 'input' | 'adgate' | 'result';
