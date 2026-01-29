@@ -4,8 +4,8 @@ export const categories: CategoryOption[] = [
   {
     id: 'newyear',
     label: '신년운세',
-    description: '2025년 을사년 운세를 확인하세요',
-    icon: '🐍',
+    description: '2026년 병오년 운세를 확인하세요',
+    icon: '🐴',
   },
   {
     id: 'saju',
@@ -32,12 +32,12 @@ export function generateFortune(category: string, userInfo?: { birthDate?: strin
   const fortunes: Record<string, FortuneResult> = {
     newyear: {
       category: 'newyear',
-      title: '2025년 을사년 신년운세',
-      summary: '새해에는 큰 변화와 기회가 찾아올 운세입니다. 상반기에는 준비의 시간을, 하반기에는 도약의 시간을 맞이하게 됩니다.',
+      title: '2026년 병오년 신년운세',
+      summary: '붉은 말의 해, 열정과 도약의 한 해가 펼쳐집니다. 적극적인 자세로 기회를 잡으면 큰 성과를 이룰 수 있습니다.',
       sections: [
         {
           title: '총운',
-          content: '을사년은 푸른 뱀의 해로, 지혜와 변화의 기운이 강합니다. 올해는 새로운 시작과 변화에 적합한 해입니다. 특히 학업이나 자기계발에 있어 큰 성과를 거둘 수 있습니다. 다만 급격한 변화보다는 차근차근 준비하는 자세가 필요합니다.',
+          content: '병오년은 붉은 말의 해로, 열정과 활력의 기운이 강합니다. 올해는 적극적으로 도전하고 행동하기에 좋은 해입니다. 특히 새로운 프로젝트나 사업을 시작하기에 적합하며, 용기 있는 결단이 좋은 결과를 가져옵니다. 다만 너무 급하게 서두르지 말고 계획을 세워 진행하세요.',
           rating: 4,
         },
         {
